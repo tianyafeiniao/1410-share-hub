@@ -1,0 +1,22 @@
+name: 1410 Share Hub CI Gatekeeper
+
+on:
+  pull_request:
+    branches: [ main, master ]
+  push:
+    branches: [ main, master ]
+
+jobs:
+  validate-packages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Validate registry.json and packages/*.zip (1410-KBS Standard)
+        run: python scripts/validate_pr.py

@@ -1,0 +1,39 @@
+name: 1410 Share Hub Issue Submission Reviewer
+
+on:
+  issues:
+    types: [opened, labeled]
+
+jobs:
+  validate-issue-submission:
+    if: contains(github.event.issue.labels.*.name, 'pending-review')
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Validate Submitted Knowledge Pack from Issue Body
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: |
+          python -c "
+          import os, re, json, sys
+          body = os.environ.get('ISSUE_BODY', '')
+          blocks = re.findall(r'\`\`\`json\s*(.*?)\s*\`\`\`', body, re.S)
+          if len(blocks) < 2:
+              print('缺少标准 manifest.json 或章节 JSON 载荷')
+              sys.exit(1)
+          manifest = json.loads(blocks[0])
+          chapters = json.loads(blocks[1])
+          assert manifest.get('name') and manifest.get('category'), '缺少书名或学科分类'
+          assert isinstance(chapters, list) and len(chapters) > 0, '章节列表为空'
+          print('ISSUE_SUBMISSION_VALIDATED_OK')
+          "

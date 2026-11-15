@@ -1,0 +1,24 @@
+{
+  "standard": "1410-KBS/3.2",
+  "hub_name": "1410知识库 · 共享中心",
+  "repo_url": "https://github.com/tianyafeiniao/1410-share-hub",
+  "license": "CC-BY-NC-SA-4.0 (Non-Commercial Only; Commercial Use Requires Paid License)",
+  "updated_at": "2026-11-15",
+  "packages": [
+    {
+      "id": "yilin",
+      "pack_id": "yilin",
+      "name": "焦氏易林",
+      "source_name": "《焦氏易林》",
+      "category": "哲学与宗教",
+      "subject_category": "易学",
+      "subcategory": "六爻",
+      "is_premium": true,
+      "version": "3.2.0",
+      "entry_count": 4096,
+      "chapter_count": 64,
+      "description": "汉代焦延寿撰《焦氏易林》64林×64卦=4096条双源校勘零误差纯 Markdown 完整原典。",
+      "download_url": "https://raw.githubusercontent.com/tianyafeiniao/1410-share-hub/main/packages/yilin.zip"
+    }
+  ]
+}
